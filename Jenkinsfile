@@ -30,4 +30,50 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            echo "Build succeeded, sending email..."
+            emailext(
+                to: 'shresthshrnk@gmail.com',
+                subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+Hi Shresth,
+
+Your Jenkins pipeline build was SUCCESSFUL 🎉
+
+Job: ${env.JOB_NAME}
+Build Number: ${env.BUILD_NUMBER}
+Maven Command: mvn ${params.MVN_CMD}
+
+Build URL:
+${env.BUILD_URL}
+
+– Jenkins
+"""
+            )
+        }
+
+        failure {
+            echo "Build failed, sending email..."
+            emailext(
+                to: 'shresthshrnk@gmail.com',
+                subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+Hi Shresth,
+
+Your Jenkins pipeline build FAILED ❌
+
+Job: ${env.JOB_NAME}
+Build Number: ${env.BUILD_NUMBER}
+Maven Command: mvn ${params.MVN_CMD}
+
+Build URL:
+${env.BUILD_URL}
+
+– Jenkins
+"""
+            )
+        }
+    }
 }

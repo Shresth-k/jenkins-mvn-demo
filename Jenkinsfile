@@ -57,7 +57,7 @@ ${env.BUILD_URL}
         failure {
             echo "Build failed, sending email..."
             emailext(
-                to: 'shresthshrnk@gmail.com',
+                to: 'shresthshrink@gmail.com',
                 subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: """
 Hi Shresth,
